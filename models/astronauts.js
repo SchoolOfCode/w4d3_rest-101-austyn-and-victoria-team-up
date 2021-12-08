@@ -1,17 +1,17 @@
 import { deployAstronauts } from '../libs/data.js'
 
-
+//GET
 export async function getAstronauts() {
   let astronauts = deployAstronauts();
   return astronauts;
 }
-
+//POST
 export async function createAstronaut(astronaut) {
   let astronauts = deployAstronauts();
   astronauts = [...astronauts, astronaut];
   return astronauts[astronauts.length - 1];
 }
-
+//GET
 export async function getAstronautById(requestId) {
   let astronauts = deployAstronauts();
   const astronaut = astronauts.find(({ id }) => id === requestId);
@@ -22,7 +22,7 @@ export async function getAstronautById(requestId) {
 
   throw new Error(`No astronaut with ${requestId} found.`);
 }
-
+//PUT
 export async function replaceAstronautById(requestId, astronautReplacement) {
   let astronauts = deployAstronauts();
   const index = astronauts.findIndex(({ id }) => id === requestId);
@@ -33,7 +33,7 @@ export async function replaceAstronautById(requestId, astronautReplacement) {
   ];
   return astronauts[index];
 }
-
+//DELETE
 export async function deleteAstronautById(requestId) {
   let astronauts = deployAstronauts();
   const index = astronauts.findIndex(({ id }) => id === requestId);
@@ -44,7 +44,7 @@ export async function deleteAstronautById(requestId) {
 
   return astronauts;
 }
-
+//PATCH
 export async function updateAstronautById(requestId, updates) {
   let astronauts = deployAstronauts();
   const index = astronauts.findIndex(({ id }) => id === requestId);
@@ -67,7 +67,7 @@ export async function updateAstronautById(requestId, updates) {
     return astronauts[index];
   }
 }
-
+//GET
 export async function getAstronautsByName(search) {
   let astronauts = deployAstronauts();
   const searchResults = astronauts.filter(({ firstName }) =>
