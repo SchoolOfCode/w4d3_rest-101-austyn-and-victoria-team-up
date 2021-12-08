@@ -14,6 +14,7 @@ const app = express();
 
 app.use(express.json());
 
+
 /* Tasks
 
 You have been asked to write the request handlers which manage the coordination of astronauts in outer space. All of the models that
@@ -33,18 +34,41 @@ res.json({
 Write a request handler to return the correct response when a `GET` request is received to `/astronauts`. Choose the appropriate 
 function from the imported functions at the top of the `app.js` to get your data. */
 
+app.get("/", function (req, res){
+  const data = { message: "One step for a man, jiant leap for a mankind"}
+  res.json(data);
+})
+
+app.get("/astronauts", async function (req, res){
+  const astronauts = await getAstronauts()
+  res.json({success: true, payload: astronauts});
+});
 
 // Task 2
 
 /* Write a request handler to return the correct response and perform the correct action when a `POST` request is received to 
 `/astronauts`. Choose the appropriate function from the imported functions at the top of the `app.js` to perform the action. */
 
-
+app.post("/astronauts", async function (req, res){
+  const newAstronaut = req.body;
+  await createAstronaut(newAstronaut);
+  res.json({   
+    "success": true,
+    "payload": newAstronaut });
+})
 // Task 3
 
 /* Write the request handler to return the data from the function getAstronautById. Have this handler listen to requests at the 
 appropriate path. */
 
+app.get("/astronauts/:astronautID", async function (req, res){
+  const id = req.params.astronautID
+  const foundId = await getAstronautById(id);
+  res.json({
+  "success": true,
+  "payload": foundId
+})
+})
 
 // Task 4
 
