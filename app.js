@@ -34,10 +34,10 @@ res.json({
 Write a request handler to return the correct response when a `GET` request is received to `/astronauts`. Choose the appropriate 
 function from the imported functions at the top of the `app.js` to get your data. */
 
-app.get("/", function (req, res){
-  const data = { message: "One step for a man, jiant leap for a mankind"}
-  res.json(data);
-})
+// app.get("/", function (req, res){
+//   const data = { message: "One step for a man, jiant leap for a mankind"}
+//   res.json(data);
+// })
 
 app.get("/astronauts", async function (req, res){
   const astronauts = await getAstronauts()
@@ -61,8 +61,8 @@ app.post("/astronauts", async function (req, res){
 /* Write the request handler to return the data from the function getAstronautById. Have this handler listen to requests at the 
 appropriate path. */
 
-app.get("/astronauts/:astronautID", async function (req, res){
-  const id = req.params.astronautID
+app.get("/astronauts/:id", async function (req, res){
+  const id = req.params.id
   const foundId = await getAstronautById(id);
   res.json({
   "success": true,
@@ -75,17 +75,39 @@ app.get("/astronauts/:astronautID", async function (req, res){
 /* Write the request handler to perform the action and return the data from the function replaceAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.put("/astronauts/:id", async function (req, res){
+  const returnedData = await replaceAstronautById(req.params.id, req.body);
+  res.json({
+  "success": true,
+  "payload": returnedData
+})
+});
+
 
 // Task 5
 
 /* Write the request handler to perform the action and return the data from the function deleteAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.delete("/astronauts/:id", async function (req, res){
+  const returnedData = await deleteAstronautById(req.params.id)
+  res.json({
+  "success": true,
+  "payload": returnedData
+  })
+})
 
 // Task 6
 
 /* Write the request handler to perform the action and return the data from the function updateAstronautById. Have this handler 
 listen to requests at the appropriate path. */
 
+app.patch("/astronauts/:id", async function (req, res){
+  const returnedData = await updateAstronautById(req.params.id, req.body);
+  res.json({
+    "success": true,
+    "payload": returnedData
+  })
+});
 
 export default app;
